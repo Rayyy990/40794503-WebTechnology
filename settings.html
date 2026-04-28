@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reality Distortion — Settings</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/panels.css">
+</head>
+<body>
+
+  <!-- Ambient canvas background -->
+  <canvas id="bgCanvas"></canvas>
+
+  <main class="page-center">
+    <div class="panel-card" style="text-align: left;">
+
+      <div class="panel-title" style="color: var(--purple); text-align: center;">
+        Settings
+      </div>
+      <div class="panel-subtitle" style="text-align: center;">
+        Configure your experience
+      </div>
+
+      <!-- Master Volume -->
+      <div class="settings-group">
+        <div class="settings-label">
+          <span>Master Volume</span>
+          <span class="settings-value" id="volLabel">50%</span>
+        </div>
+        <input
+          type="range"
+          id="volumeSlider"
+          min="0" max="1" step="0.01"
+          value="0.5"
+        >
+      </div>
+
+      <!-- Particle Quality -->
+      <div class="settings-group">
+        <div class="settings-label">
+          <span>Particle Quality</span>
+          <span class="settings-value" id="particleLabel">High</span>
+        </div>
+        <input
+          type="range"
+          id="particleSlider"
+          min="0" max="2" step="1"
+          value="2"
+        >
+      </div>
+
+      <!-- Screen Shake Toggle -->
+      <div class="settings-group">
+        <div class="settings-label">
+          <span>Screen Shake</span>
+          <span class="settings-value" id="shakeLabel">On</span>
+        </div>
+        <input
+          type="range"
+          id="shakeSlider"
+          min="0" max="1" step="1"
+          value="1"
+        >
+      </div>
+
+      <!-- Done Button -->
+      <a class="panel-btn primary" href="index.html">Done</a>
+
+    </div>
+  </main>
+
+  <!-- JS loaded in Phase 2 -->
+  <script src="js/ui.js"></script>
+
+</body>
+</html>
