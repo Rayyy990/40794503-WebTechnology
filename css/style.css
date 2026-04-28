@@ -1,0 +1,168 @@
+/* 
+   style.css — Shared base styles
+   Reality Distortion
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
+
+/*  CSS Variables  */
+:root {
+  --cyan:       #00f5ff;
+  --red:        #ff2d55;
+  --gold:       #ffd60a;
+  --purple:     #bf5af2;
+  --green:      #34c759;
+  --bg:         #050508;
+  --panel-bg:   rgba(8, 8, 16, 0.92);
+  --border:     rgba(0, 245, 255, 0.15);
+  --font-display: 'Orbitron', sans-serif;
+  --font-body:    'Rajdhani', sans-serif;
+}
+
+/*  Reset  */
+*, *::before, *::after {
+  box-sizing: border-box;
+  user-select: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*  Base Body  */
+body {
+  background: var(--bg);
+  font-family: var(--font-body);
+  overflow: hidden;
+  color: white;
+  min-height: 100vh;
+}
+
+/*  Scanline CRT Overlay  */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.08) 3px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+canvas {
+  display: block;
+  position: fixed;
+  inset: 0;
+}
+
+/*  Shared Button Base  */
+.btn {
+  position: relative;
+  padding: 14px 24px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: white;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+.btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.btn.primary {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+.btn.primary:hover {
+  background: rgba(0, 245, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.15);
+}
+.btn.danger {
+  border-color: var(--red);
+  color: var(--red);
+}
+.btn.danger:hover {
+  background: rgba(255, 45, 85, 0.1);
+  box-shadow: 0 0 20px rgba(255, 45, 85, 0.15);
+}
+
+/*  Divider  */
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 4px 0;
+}
+
+/*  Panel Card (shared across pages)  */
+.panel-card {
+  width: min(440px, 90vw);
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 44px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.panel-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+}
+.panel-subtitle {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.panel-btn {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  color: white;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+  display: block;
+}
+.panel-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.panel-btn.primary {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+.panel-btn.primary:hover {
+  background: rgba(0, 245, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.15);
+}
