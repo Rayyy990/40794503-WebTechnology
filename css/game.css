@@ -1,0 +1,125 @@
+/* 
+   game.css — Gameplay HUD styles
+   Reality Distortion
+ */
+
+/*  HUD Container  */
+#hud {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: 16px 24px;
+  pointer-events: none;
+}
+
+.hud-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/*  HUD Blocks  */
+.hud-block {
+  min-width: 150px;
+  height: 70px;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 18px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: all;
+  justify-items: center;
+}
+
+/*  Score  */
+.hud-score-label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+}
+
+.hud-score-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--cyan);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+}
+
+/*  Effect Indicator  */
+#effectDisplay {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.effect-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555;
+  flex-shrink: 0;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.effect-dot.active {
+  background: var(--red);
+  box-shadow: 0 0 12px var(--red);
+  animation: dotBlink 0.8s ease-in-out infinite;
+}
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.effect-name {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.effect-name.has-effect {
+  color: var(--red);
+  text-shadow: 0 0 8px rgba(255, 45, 85, 0.5);
+}
+
+/*  Controls hint  */
+.hud-controls {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.25);
+  margin-top: 5px;
+}
+
+/*  Wave Alert Banner  */
+#waveIndicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 5vw, 48px);
+  letter-spacing: 6px;
+  color: var(--red);
+  text-shadow: 0 0 40px rgba(255, 45, 85, 0.8);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 60;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+
+/*  Screen Flash (effect trigger)  */
+#effectFlash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 55;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
