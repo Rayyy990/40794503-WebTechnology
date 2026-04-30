@@ -119,11 +119,11 @@
 
 /*  Version Tag  */
 .menu-version {
-  position: fixed;
-  bottom: 20px;
-  right: 24px;
+  position: absolute;
+  justify-self: center;
+  bottom: 20%;
   font-size: 10px;
   letter-spacing: 3px;
-  color: rgba(255, 255, 255, 0.15);
+  color: white;
   text-transform: uppercase;
 }
