@@ -4,7 +4,7 @@
 // ═══════════════════════════════════════════════════════
 
 let particles = [];
-let particleQuality = 2; // 0=Off, 1=Low, 2=High
+let particleQuality = parseInt(localStorage.getItem('ca_particle') ?? 2);
 
 /**
  * Spawn an explosion burst of particles

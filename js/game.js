@@ -34,7 +34,7 @@ let currentEffect = 'None';
 let shakeX = 0, shakeY = 0, shakeDecay = 0;
 let lastTime = 0, deltaTime = 0;
 
-window.screenShakeEnabled = true;
+window.screenShakeEnabled = (localStorage.getItem('ca_shake') ?? '1') === '1';
 
 const EFFECTS = [
   'Reverse Controls',
@@ -44,13 +44,19 @@ const EFFECTS = [
   'Screen Shake'
 ];
 
-//  Read difficulty from URL 
+// setting
+masterVolume = parseFloat(localStorage.getItem('ca_volume') ?? 0.5);
+particleQuality = parseInt(localStorage.getItem('ca_particle') ?? 2);
+shakeEnabled = localStorage.getItem('ca_shake') !== '0';
+syncVolume();
+
+//  Read difficulty from URL
 (function readDifficulty() {
   const params = new URLSearchParams(window.location.search);
   difficulty = params.get('difficulty') || 'normal';
 })();
 
-//  Stars 
+//  Stars
 function initStars() {
   stars = [];
   for (let i = 0; i < 150; i++) {
@@ -78,7 +84,7 @@ function drawStars() {
   ctx.globalAlpha = 1;
 }
 
-//  Init 
+//  Init
 function init() {
   clearInterval(distortionInterval);
   clearInterval(waveInterval);
@@ -117,7 +123,7 @@ function init() {
   gameLoop(lastTime);
 }
 
-//  Waves 
+//  Waves
 // Each chaser carries a waveId so we can remove exactly
 // the right group even after earlier groups have been removed.
 let nextWaveId = 0;
@@ -152,8 +158,8 @@ function spawnWave() {
 
   spawnParticles(chasers[chasers.length - 1].x, chasers[chasers.length - 1].y, '#ff2d55', 8, 4, 0.5);
 
-  // Insane: 25 s lifespan — Easy/Normal: 35 s lifespan
-  const lifespan = difficulty === 'insane' ? 22000 : difficulty === 'normal' ? 32000 : 42000;
+  // Chasing object lifespam
+  const lifespan = difficulty === 'insane' ? 15000 : difficulty === 'normal' ? 21000 : 24000;
   const timeout = setTimeout(() => {
     if (!gameRunning) return;
     // Remove by waveId — safe regardless of array shifts
@@ -169,12 +175,12 @@ function startWaveSystem() {
   waveInterval = setInterval(() => {
     if (!gameRunning || paused) return;
     spawnWave();
-  }, difficulty === 'insane' ? 8000 : difficulty === 'normal' ? 10000 : 10000);
+  }, difficulty === 'insane' ? 5000 : difficulty === 'normal' ? 7000 : 8000);
 }
 
-//  Falling Objects 
+//  Falling Objects
 function startFalling() {
-  const interval = difficulty === 'insane' ? 900 : difficulty === 'normal' ? 1400 : 2000;
+  const interval = difficulty === 'insane' ? 600 : difficulty === 'normal' ? 800 : 1000;
   fallInterval = setInterval(() => {
     if (!gameRunning || paused) return;
     if (falls.length > 8) return;
@@ -190,11 +196,11 @@ function startFalling() {
   }, interval);
 }
 
-//  Distortion 
+//  Distortion
 let effectClearTimer = null; // track the clear timeout so we can cancel it
 
 function startDistortion() {
-  const interval = difficulty === 'easy' ? 25000 : difficulty === 'normal' ? 16000 : 8000;
+  const interval = difficulty === 'easy' ? 20000 : difficulty === 'normal' ? 15000 : 8000;
   distortionInterval = setInterval(() => {
     if (!gameRunning || paused) return;
     // Only fire a new effect if none is currently active
@@ -216,7 +222,7 @@ function triggerEffect() {
   flashScreen();
   updateEffectHUD(currentEffect);
 
-  const dur = difficulty === 'easy' ? 4000 : difficulty === 'normal' ? 6000 : 8000;
+  const dur = difficulty === 'easy' ? 6000 : difficulty === 'normal' ? 7000 : 8000;
   effectClearTimer = setTimeout(() => {
     if (!gameRunning) return;
     currentEffect = 'None';

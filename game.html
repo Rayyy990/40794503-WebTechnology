@@ -10,68 +10,68 @@
 </head>
 <body>
 
-  <!-- Game Canvas -->
-  <canvas id="game"></canvas>
+<!-- Game Canvas -->
+<canvas id="game"></canvas>
 
-  <!-- HUD (top bar) -->
-  <div id="hud">
-    <div class="hud-inner">
+<!-- HUD (top bar) -->
+<div id="hud">
+  <div class="hud-inner">
 
-      <!-- Left: Score -->
+    <!-- Left: Score -->
+    <div class="hud-block">
+      <div class="hud-score-label">Score</div>
+      <div class="hud-score-value" id="score">0</div>
+    </div>
+
+    <!-- Right: Effect + Controls -->
+    <div style="text-align: right;">
       <div class="hud-block">
-        <div class="hud-score-label">Score</div>
-        <div class="hud-score-value" id="score">0</div>
-      </div>
-
-      <!-- Right: Effect + Controls -->
-      <div style="text-align: right;">
-        <div class="hud-block">
-          <div id="effectDisplay">
-            <div class="effect-dot" id="effectDot"></div>
-            <span class="effect-name" id="effectName">No Effect</span>
-          </div>
-          <div class="hud-controls">ESC — pause &nbsp;·&nbsp; WASD / ↑↓←→ move</div>
+        <div id="effectDisplay">
+          <div class="effect-dot" id="effectDot"></div>
+          <span class="effect-name" id="effectName">No Effect</span>
         </div>
+        <div class="hud-controls">ESC — pause &nbsp;·&nbsp; WASD / ↑↓←→ move</div>
       </div>
-
     </div>
+
   </div>
+</div>
 
-  <!-- Wave Incoming Banner -->
-  <div id="waveIndicator">WAVE INCOMING</div>
+<!-- Wave Incoming Banner -->
+<div id="waveIndicator">WAVE INCOMING</div>
 
-  <!-- Effect Screen Flash -->
-  <div id="effectFlash"></div>
+<!-- Effect Screen Flash -->
+<div id="effectFlash"></div>
 
-  <!-- ── PAUSE PANEL ── -->
-  <div id="pausePanel" class="panel-overlay">
-    <div class="panel-card">
-      <div class="panel-title pause-title">PAUSED</div>
-      <div class="panel-subtitle">Reality suspended</div>
-      <button class="panel-btn primary" id="resumeBtn">Resume</button>
-      <a class="panel-btn" href="index.html">Main Menu</a>
+<!-- ── PAUSE PANEL ── -->
+<div id="pausePanel" class="panel-overlay">
+  <div class="panel-card">
+    <div class="panel-title pause-title">PAUSED</div>
+    <div class="panel-subtitle">Reality suspended</div>
+    <button class="panel-btn primary" id="resumeBtn">Resume</button>
+    <a class="panel-btn" href="index.html">Main Menu</a>
+  </div>
+</div>
+
+<!-- ── GAME OVER PANEL ── -->
+<div id="gameOverPanel" class="panel-overlay">
+  <div class="panel-card">
+    <div class="panel-title" style="color: var(--red);">REALITY<br>COLLAPSED</div>
+    <div class="final-score-block">
+      <div class="final-score-label">Final Score</div>
+      <div class="final-score-value" id="finalScore">0</div>
+      <div id="hsBadge" class="hs-badge" style="display: none;">⚡ New High Score</div>
     </div>
+    <button class="panel-btn primary" id="restartBtn">Restart</button>
+    <a class="panel-btn" href="index.html">Main Menu</a>
   </div>
+</div>
 
-  <!-- ── GAME OVER PANEL ── -->
-  <div id="gameOverPanel" class="panel-overlay">
-    <div class="panel-card">
-      <div class="panel-title" style="color: var(--red);">REALITY<br>COLLAPSED</div>
-      <div class="final-score-block">
-        <div class="final-score-label">Final Score</div>
-        <div class="final-score-value" id="finalScore">0</div>
-        <div id="hsBadge" class="hs-badge" style="display: none;">⚡ New High Score</div>
-      </div>
-      <button class="panel-btn primary" id="restartBtn">Restart</button>
-      <a class="panel-btn" href="index.html">Main Menu</a>
-    </div>
-  </div>
-
-  JS loaded in Phase 2
-  <script src="js/audio.js"></script>  
-  <script src="js/particles.js"></script>
-  <script src="js/game.js"></script>    
-  <script src="js/ui.js"></script>      
+JS loaded in Phase 2
+<script src="js/audio.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/game.js"></script>
+<script src="js/ui.js"></script>
 
 </body>
 </html>

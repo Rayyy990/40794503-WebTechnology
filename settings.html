@@ -9,69 +9,106 @@
 </head>
 <body>
 
-  <!-- Ambient canvas background -->
-  <canvas id="bgCanvas"></canvas>
+<!-- Ambient canvas background -->
+<canvas id="bgCanvas"></canvas>
 
-  <main class="page-center">
-    <div class="panel-card" style="text-align: left;">
+<main class="page-center">
+  <div class="panel-card" style="text-align: left;">
 
-      <div class="panel-title" style="color: var(--purple); text-align: center;">
-        Settings
-      </div>
-      <div class="panel-subtitle" style="text-align: center;">
-        Configure your experience
-      </div>
-
-      <!-- Master Volume -->
-      <div class="settings-group">
-        <div class="settings-label">
-          <span>Master Volume</span>
-          <span class="settings-value" id="volLabel">50%</span>
-        </div>
-        <input
-          type="range"
-          id="volumeSlider"
-          min="0" max="1" step="0.01"
-          value="0.5"
-        >
-      </div>
-
-      <!-- Particle Quality -->
-      <div class="settings-group">
-        <div class="settings-label">
-          <span>Particle Quality</span>
-          <span class="settings-value" id="particleLabel">High</span>
-        </div>
-        <input
-          type="range"
-          id="particleSlider"
-          min="0" max="2" step="1"
-          value="2"
-        >
-      </div>
-
-      <!-- Screen Shake Toggle -->
-      <div class="settings-group">
-        <div class="settings-label">
-          <span>Screen Shake</span>
-          <span class="settings-value" id="shakeLabel">On</span>
-        </div>
-        <input
-          type="range"
-          id="shakeSlider"
-          min="0" max="1" step="1"
-          value="1"
-        >
-      </div>
-
-      <!-- Done Button -->
-      <a class="panel-btn primary" href="index.html">Done</a>
-
+    <div class="panel-title" style="color: var(--purple); text-align: center;">
+      Settings
     </div>
-  </main>
+    <div class="panel-subtitle" style="text-align: center;">
+      Configure your experience
+    </div>
 
-  <!-- JS loaded in Phase 2 -->
-  <script src="js/ui.js"></script>
+    <!-- Master Volume -->
+    <div class="settings-group">
+      <div class="settings-label">
+        <span>Master Volume</span>
+        <span class="settings-value" id="volLabel">50%</span>
+      </div>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <!-- Particle Quality -->
+    <div class="settings-group">
+      <div class="settings-label">
+        <span>Particle Quality</span>
+        <span class="settings-value" id="particleLabel">High</span>
+      </div>
+      <input type="range" id="particleSlider" min="0" max="2" step="1" value="2">
+    </div>
+
+    <!-- Screen Shake Toggle -->
+    <div class="settings-group">
+      <div class="settings-label">
+        <span>Screen Shake</span>
+        <span class="settings-value" id="shakeLabel">On</span>
+      </div>
+      <input type="range" id="shakeSlider" min="0" max="1" step="1" value="1">
+    </div>
+
+    <!-- Done Button -->
+    <a class="panel-btn primary" href="index.html">Done</a>
+
+  </div>
+</main>
+
+<!-- load audio FIRST so syncVolume exists, then menu.js for starfield -->
+<script src="js/audio.js"></script>
+<script src="js/menu.js"></script>
+<script>
+  const pLabels = ['Off', 'Low', 'High'];
+
+  const volSlider      = document.getElementById('volumeSlider');
+  const particleSlider = document.getElementById('particleSlider');
+  const shakeSlider    = document.getElementById('shakeSlider');
+  const volLabel       = document.getElementById('volLabel');
+  const particleLabel  = document.getElementById('particleLabel');
+  const shakeLabel     = document.getElementById('shakeLabel');
+
+  // ── Load saved settings ───────────────────────────────
+  const savedVol  = localStorage.getItem('ca_volume');
+  const savedPart = localStorage.getItem('ca_particle');
+  const savedShk  = localStorage.getItem('ca_shake');
+
+  if (savedVol  !== null) volSlider.value      = savedVol;
+  if (savedPart !== null) particleSlider.value = savedPart;
+  if (savedShk  !== null) shakeSlider.value    = savedShk;
+
+  // Apply volume to audio on load
+  masterVolume = parseFloat(volSlider.value);
+  syncVolume();
+
+  // Update all labels on load
+  updateAllLabels();
+
+  // ── Slider listeners ──────────────────────────────────
+  volSlider.addEventListener('input', () => {
+    masterVolume = parseFloat(volSlider.value);
+    syncVolume();
+    localStorage.setItem('ca_volume', volSlider.value);
+    updateAllLabels();
+  });
+
+  particleSlider.addEventListener('input', () => {
+    localStorage.setItem('ca_particle', particleSlider.value);
+    updateAllLabels();
+  });
+
+  shakeSlider.addEventListener('input', () => {
+    localStorage.setItem('ca_shake', shakeSlider.value);
+    updateAllLabels();
+  });
+
+  // ── Label updater ─────────────────────────────────────
+  function updateAllLabels() {
+    volLabel.textContent      = Math.round(parseFloat(volSlider.value) * 100) + '%';
+    particleLabel.textContent = pLabels[parseInt(particleSlider.value)];
+    shakeLabel.textContent    = shakeSlider.value === '1' ? 'On' : 'Off';
+  }
+</script>
 
 </body>
 </html>
