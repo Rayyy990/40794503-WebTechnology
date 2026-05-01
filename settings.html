@@ -68,7 +68,7 @@
   const particleLabel  = document.getElementById('particleLabel');
   const shakeLabel     = document.getElementById('shakeLabel');
 
-  // ── Load saved settings ───────────────────────────────
+  //  Load saved settings
   const savedVol  = localStorage.getItem('ca_volume');
   const savedPart = localStorage.getItem('ca_particle');
   const savedShk  = localStorage.getItem('ca_shake');
@@ -84,7 +84,7 @@
   // Update all labels on load
   updateAllLabels();
 
-  // ── Slider listeners ──────────────────────────────────
+  //  Slider listeners
   volSlider.addEventListener('input', () => {
     masterVolume = parseFloat(volSlider.value);
     syncVolume();
@@ -102,7 +102,7 @@
     updateAllLabels();
   });
 
-  // ── Label updater ─────────────────────────────────────
+  //  Label updater
   function updateAllLabels() {
     volLabel.textContent      = Math.round(parseFloat(volSlider.value) * 100) + '%';
     particleLabel.textContent = pLabels[parseInt(particleSlider.value)];
